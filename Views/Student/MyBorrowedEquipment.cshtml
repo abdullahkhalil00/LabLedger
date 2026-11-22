@@ -1,0 +1,8 @@
+@{
+	Layout = "_StudentLayout";
+	ViewData["Title"] = "My Borrowed Equipment";
+}
+
+<div class="student-page-header"><div><span class="module-eyebrow">CURRENT LOANS</span><h2>My Borrowed Equipment</h2><p>Keep track of equipment currently issued to you and upcoming return dates.</p></div><a class="btn btn-outline-primary" asp-action="ReportDamage"><i class="bi bi-exclamation-triangle me-2"></i>Report Damage</a></div>
+<div class="row g-3 mb-4"><div class="col-6 col-md-4"><div class="module-stat"><i class="bi bi-box-seam"></i><strong>02</strong><span>Items borrowed</span></div></div><div class="col-6 col-md-4"><div class="module-stat"><i class="bi bi-calendar-check"></i><strong>01</strong><span>Due this week</span></div></div><div class="col-6 col-md-4"><div class="module-stat"><i class="bi bi-exclamation-circle"></i><strong>00</strong><span>Overdue items</span></div></div></div>
+<div class="module-table table-responsive"><table class="table align-middle"><thead><tr><th>Equipment</th><th>Laboratory</th><th>Issue date</th><th>Expected return</th><th>Status</th></tr></thead><tbody><tr><td class="fw-semibold">Arduino Uno R3</td><td>Computer Lab 01</td><td>06 Nov 2026</td><td>13 Nov 2026</td><td><span class="status-badge approved">Issued</span></td></tr><tr class="table-warning"><td class="fw-semibold">Raspberry Pi 4</td><td>Computer Lab 02</td><td>01 Nov 2026</td><td>08 Nov 2026</td><td><span class="status-badge rejected">Overdue</span></td></tr></tbody></table></div>

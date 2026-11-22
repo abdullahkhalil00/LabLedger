@@ -1,0 +1,8 @@
+@{
+	Layout = "_StudentLayout";
+	ViewData["Title"] = "My Reservations";
+}
+
+<div class="student-page-header"><div><span class="module-eyebrow">BOOKING HISTORY</span><h2>My Reservations</h2><p>Review your equipment requests and reservation status.</p></div><a class="btn btn-primary" asp-action="Equipment"><i class="bi bi-plus-lg me-2"></i>New Reservation</a></div>
+<div class="row g-3 mb-4"><div class="col-6 col-xl-3"><div class="module-stat"><i class="bi bi-calendar-event"></i><strong>03</strong><span>Total reservations</span></div></div><div class="col-6 col-xl-3"><div class="module-stat"><i class="bi bi-check-circle"></i><strong>01</strong><span>Approved</span></div></div><div class="col-6 col-xl-3"><div class="module-stat"><i class="bi bi-hourglass-split"></i><strong>01</strong><span>Pending</span></div></div><div class="col-6 col-xl-3"><div class="module-stat"><i class="bi bi-x-circle"></i><strong>01</strong><span>Rejected</span></div></div></div>
+<div class="module-table table-responsive"><table class="table align-middle"><thead><tr><th>Equipment</th><th>Laboratory</th><th>Reservation date</th><th>Time slot</th><th>Status</th></tr></thead><tbody><tr><td class="fw-semibold">Arduino Uno R3</td><td>Computer Lab 01</td><td>09 Nov 2026</td><td>09:00 - 11:00</td><td><span class="status-badge approved">Approved</span></td></tr><tr><td class="fw-semibold">Digital Oscilloscope</td><td>Electronics Lab</td><td>11 Nov 2026</td><td>13:00 - 15:00</td><td><span class="status-badge pending">Pending</span></td></tr><tr><td class="fw-semibold">Network Switch</td><td>Networking Lab</td><td>12 Nov 2026</td><td>10:00 - 12:00</td><td><span class="status-badge rejected">Rejected</span></td></tr></tbody></table></div>

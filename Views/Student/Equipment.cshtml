@@ -1,0 +1,155 @@
+
+@model List<LabLedger.Models.EquipmentCatalog>
+
+@{
+    Layout = "_StudentLayout";
+    ViewData["Title"] = "Equipment Catalog";
+}
+
+<div class="student-page-header">
+    <div>
+        <span class="module-eyebrow">RESOURCE LIBRARY</span>
+        <h2>Equipment Catalog</h2>
+        <p>Find and reserve the equipment you need for your laboratory work.</p>
+    </div>
+    <a class="btn btn-primary" asp-controller="Student" asp-action="MyReservations">
+        <i class="bi bi-calendar-check me-2"></i>My Reservations
+    </a>
+</div>
+
+<div class="module-panel mb-4">
+    <div class="row g-3">
+        <div class="col-lg-6">
+            <label class="form-label" for="equipmentSearch">Search equipment</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                <input id="equipmentSearch" class="form-control" type="search"
+                       placeholder="Search by equipment name...">
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label" for="categoryFilter">Category</label>
+            <select id="categoryFilter" class="form-select">
+                <option value="">All categories</option>
+                @foreach (var category in Model.Select(x => x.Category).Distinct())
+                {
+                    <option value="@category">@category</option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label" for="availabilityFilter">Availability</label>
+            <select id="availabilityFilter" class="form-select">
+                <option value="">Any status</option>
+                @foreach (var status in Model.Select(x => x.Status).Distinct())
+                {
+                    <option value="@status">@status</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4" id="equipmentContainer">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-xl-4 equipment-item"
+             data-name="@item.EquipmentName.ToLower()"
+             data-category="@item.Category"
+             data-status="@item.Status">
+
+            <article class="student-equipment-card h-100">
+
+                <div class="equipment-placeholder">
+                    <i class="bi bi-cpu"></i>
+                </div>
+
+                <div class="p-4">
+
+                    <span class="badge text-bg-light mb-2">
+                        @item.Category
+                    </span>
+
+                    <h5>@item.EquipmentName</h5>
+
+                    <p class="text-muted small">
+                        @item.Location
+                    </p>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+
+                        <span class="status-badge @(item.Status == "Available" ? "approved" : "pending")">
+                            @item.Status
+                        </span>
+
+                        <small class="text-muted">
+                            @item.Quantity units
+                        </small>
+
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <a class="btn btn-outline-primary btn-sm flex-grow-1"
+                           asp-action="EquipmentDetails"
+                           asp-route-id="@item.Id">
+                            View Details
+                        </a>
+
+                        <a class="btn btn-primary btn-sm"
+                           asp-action="EquipmentDetails"
+                           asp-route-id="@item.Id">
+                            Reserve
+                        </a>
+                    </div>
+
+                </div>
+            </article>
+        </div>
+    }
+
+</div>
+
+<div id="noEquipment" class="text-center py-5" style="display:none;">
+    <i class="bi bi-search fs-1 text-muted"></i>
+    <h5 class="mt-3">No equipment found</h5>
+    <p class="text-muted">Try changing your search or filters.</p>
+</div>
+
+<script>
+    const searchInput = document.getElementById("equipmentSearch");
+    const categoryFilter = document.getElementById("categoryFilter");
+    const availabilityFilter = document.getElementById("availabilityFilter");
+
+    function filterEquipment() {
+        const search = searchInput.value.toLowerCase();
+        const category = categoryFilter.value.toLowerCase();
+        const status = availabilityFilter.value.toLowerCase();
+
+        let visibleCount = 0;
+
+        document.querySelectorAll(".equipment-item").forEach(item => {
+            const name = item.dataset.name;
+            const itemCategory = item.dataset.category.toLowerCase();
+            const itemStatus = item.dataset.status.toLowerCase();
+
+            const matches =
+                name.includes(search) &&
+                (!category || itemCategory === category) &&
+                (!status || itemStatus === status);
+
+            item.style.display = matches ? "" : "none";
+
+            if (matches) visibleCount++;
+        });
+
+        document.getElementById("noEquipment").style.display =
+            visibleCount === 0 ? "block" : "none";
+    }
+
+    searchInput.addEventListener("input", filterEquipment);
+    categoryFilter.addEventListener("change", filterEquipment);
+    availabilityFilter.addEventListener("change", filterEquipment);
+</script>

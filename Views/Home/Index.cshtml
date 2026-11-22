@@ -1,0 +1,497 @@
+﻿@{
+    ViewData["Title"] = "Home - LabLedger";
+}
+
+<style>
+    :root {
+        --bs-primary-rgb: 13, 110, 253;
+        --hero-bg-start: #0f172a;
+        --hero-bg-end: #1e293b;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        background: linear-gradient(135deg, var(--hero-bg-start) 0%, var(--hero-bg-end) 100%);
+        position: relative;
+        overflow: hidden;
+        border-radius: 20px;
+    }
+
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(255, 193, 7, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+        top: -100px;
+        right: -100px;
+        z-index: 1;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-icon-box {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 1.5rem;
+        padding: 3rem 2rem;
+        display: inline-block;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero-icon-box i {
+        font-size: 4rem;
+        color: #ffc107;
+    }
+
+    /* Section Labels */
+    .section-label {
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+        color: #0d6efd;
+        background: rgba(13, 110, 253, 0.1);
+        padding: 0.4rem 0.9rem;
+        border-radius: 50rem;
+        display: inline-block;
+    }
+
+    .section-description {
+        max-width: 600px;
+    }
+
+    /* Requested Headings - White */
+    .home-page #about h2,
+    .home-page #features h2,
+    .home-page #how-it-works h2,
+    .home-page .roles-section h2,
+    .home-page .cta-section h2 {
+        color: #ffffff !important;
+    }
+
+    .home-page .white-title-badge {
+        background: linear-gradient(118deg, #123f4a, #087f8c);
+        color: #ffffff !important;
+        display: inline-block;
+        padding: 0.5rem 1.5rem;
+        border-radius: 0.75rem;
+    }
+
+    /* Feature Cards */
+    .feature-card {
+        border-radius: 1rem;
+        padding: 2.2rem 1.8rem;
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-6px);
+    }
+
+    .feature-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1.2rem;
+        display: inline-block;
+    }
+
+    /* About Box */
+    .about-box {
+        border-radius: 1rem;
+        padding: 2.5rem;
+        height: 100%;
+    }
+
+    .about-box i {
+        font-size: 3rem;
+    }
+
+    /* Requested Paragraphs - Dark / Black */
+    .home-page .about-box p,
+    .home-page .about-box .text-muted,
+    .home-page .feature-card p,
+    .home-page .feature-card .text-muted {
+        color: #172433 !important;
+    }
+
+    /* Process Cards */
+    .process-card {
+        border-radius: 1rem;
+        padding: 2.5rem 1.5rem;
+        position: relative;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .process-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .process-number {
+        position: absolute;
+        top: 1.2rem;
+        right: 1.5rem;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #cbd5e1;
+    }
+
+    .process-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+    }
+
+    /* Role Cards */
+    .role-card {
+        border-radius: 1rem;
+        padding: 2rem;
+        text-align: center;
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    .role-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .role-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+        position: relative;
+        overflow: hidden;
+    }
+</style>
+
+<div class="home-page">
+    <!-- Hero Section -->
+    <section class="hero-section py-5 py-lg-0 min-vh-75 d-flex align-items-center">
+        <div class="container hero-content py-5">
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-6">
+                    <span
+                        class="badge bg-primary bg-opacity-10 text-primary border border-primary border-opacity-25 mb-3 px-3 py-2 rounded-pill fw-semibold">
+                        <i class="bi bi-shield-check me-1"></i> University Laboratory Management
+                    </span>
+
+                    <h1 class="display-4 fw-bold text-white lh-base">
+                        Smart Laboratory <br />
+                        <span class="text-warning">Resource Management</span>
+                    </h1>
+
+                    <p class="lead text-white-50 mt-3 mb-4">
+                        Manage laboratory equipment, reserve resources, track availability, and simplify laboratory
+                        operations seamlessly with LabLedger.
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-3">
+                        <a asp-area="Identity" asp-page="/Account/Register"
+                           class="btn btn-warning btn-lg px-4 py-3 fw-semibold shadow-sm">
+                            Get Started <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
+
+                        <a href="#features" class="btn btn-outline-light btn-lg px-4 py-3 fw-semibold">
+                            Explore Features
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 text-center">
+                    <div class="hero-icon-box text-white">
+                        <i class="bi bi-pc-display-horizontal"></i>
+                        <h3 class="mt-3 fw-bold text-white">LabLedger</h3>
+                        <p class="text-white-50 mb-0">
+                            Manage &bull; Reserve &bull; Maintain
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-5 py-lg-6" id="about">
+        <div class="container py-4">
+
+            <div class="text-center mb-5">
+                <span class="section-label mb-2">ABOUT US</span>
+                <h2 class="fw-bold mt-2 display-6 ">What is LabLedger?</h2>
+                <p class="text-muted mx-auto section-description lead fs-6 mt-3">
+                    A centralized digital platform designed to make university laboratory resource management simple,
+                    efficient, and transparent.
+                </p>
+            </div>
+
+            <div class="row align-items-center g-4">
+
+                <div class="col-lg-6">
+                    <div class="about-box">
+                        <i class="bi bi-buildings mb-3"></i>
+                        <h3 class="fw-bold fs-4 mt-2">Better Laboratory Operations</h3>
+                        <p class="text-muted mt-3 mb-0">
+                            LabLedger helps universities organize their laboratory equipment, manage online
+                            reservations, monitor stock levels, and maintain comprehensive equipment service records
+                            through one unified system.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 ps-lg-5">
+                    <h3 class="fw-bold mb-3 fs-3">
+                        Why Choose LabLedger?
+                    </h3>
+
+                    <p class="text-muted mb-4">
+                        Traditional laboratory management often relies on manual logs and fragmented records. LabLedger
+                        replaces paper trails with an intuitive, structured digital workflow.
+                    </p>
+
+                    <div class="d-flex align-items-start mb-3">
+                        <i class="bi bi-check-circle-fill text-success fs-5 me-3 mt-1"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Centralized Equipment Records</h6>
+                            <p class="text-muted small mb-0">All inventory specs, models, and locations cataloged in one
+                                place.</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-check-circle-fill text-success fs-5 me-3 mt-1"></i>
+                            <div>
+                                <h6 class="fw-bold mb-1">Frictionless Equipment Reservations</h6>
+                                <p class="text-muted small mb-0">Real-time scheduling requests preventing double-bookings.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-check-circle-fill text-success fs-5 me-3 mt-1"></i>
+                            <div>
+                                <h6 class="fw-bold mb-1">Maintenance & Issue Tracking</h6>
+                                <p class="text-muted small mb-0">Swiftly report breakdowns and log technician repair
+                                    history.</p>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start">
+                                <i class="bi bi-check-circle-fill text-success fs-5 me-3 mt-1"></i>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Organized Stock Control</h6>
+                                    <p class="text-muted small mb-0">Clear distinction of available, issued, and damaged assets.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="features-section py-5 py-lg-6 border-top border-bottom" id="features">
+                <div class="container py-4">
+
+                    <div class="text-center mb-5">
+                        <span class="section-label mb-2">OUR FEATURES</span>
+                        <h2 class="fw-bold mt-2 display-6 ">Everything in One Place</h2>
+                        <p class="text-muted section-description mx-auto lead fs-6 mt-3">
+                            Comprehensive tools built specifically to manage your university laboratory ecosystem efficiently.
+                        </p>
+                    </div>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card">
+                                <i class="bi bi-pc-display"></i>
+                                <h5 class="fw-bold">Equipment Management</h5>
+                                <p class="text-muted mb-0 small">
+                                    Organize laboratory hardware and maintain detailed specifications and asset lifecycle
+                                    records.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card">
+                                <i class="bi bi-calendar-check"></i>
+                                <h5 class="fw-bold">Equipment Reservation</h5>
+                                <p class="text-muted mb-0 small">
+                                    Allow students and faculty to request equipment reservations and verify real-time
+                                    availability slots.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card">
+                                <i class="bi bi-box-seam"></i>
+                                <h5 class="fw-bold">Inventory Tracking</h5>
+                                <p class="text-muted mb-0 small">
+                                    Monitor currently available, actively issued, and damaged laboratory equipment dynamically.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card">
+                                <i class="bi bi-tools"></i>
+                                <h5 class="fw-bold">Maintenance Management</h5>
+                                <p class="text-muted mb-0 small">
+                                    Report equipment malfunctions instantly and preserve clean, audit-ready repair histories.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card">
+                                <i class="bi bi-arrow-left-right"></i>
+                                <h5 class="fw-bold">Issue and Return</h5>
+                                <p class="text-muted mb-0 small">
+                                    Streamline checkouts, monitor return dates reliably, and trace full borrowing audit trails.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <div class="feature-card">
+                                <i class="bi bi-bar-chart-line"></i>
+                                <h5 class="fw-bold">Reports & Analytics</h5>
+                                <p class="text-muted mb-0 small">
+                                    Generate insights on equipment usage metrics, reservation volumes, and maintenance
+                                    frequency.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works Section -->
+            <section class="py-5 py-lg-6" id="how-it-works">
+                <div class="container py-4">
+
+                    <div class="text-center mb-5">
+                        <span class="section-label mb-2">PROCESS</span>
+                        <h2 class="fw-bold mt-2 display-6 ">How It Works</h2>
+                    </div>
+
+                    <div class="row g-4 text-center">
+
+                        <div class="col-md-4">
+                            <div class="process-card">
+                                <div class="process-number">01</div>
+                                <i class="bi bi-person-plus process-icon"></i>
+                                <h5 class="fw-bold">Create an Account</h5>
+                                <p class="text-muted small mb-0">
+                                    Register and securely log in using your official university credentials.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="process-card">
+                                <div class="process-number">02</div>
+                                <i class="bi bi-search process-icon"></i>
+                                <h5 class="fw-bold">Explore Equipment</h5>
+                                <p class="text-muted small mb-0">
+                                    Browse comprehensive catalogs of lab resources and select the required gear.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="process-card">
+                                <div class="process-number">03</div>
+                                <i class="bi bi-calendar2-check process-icon"></i>
+                                <h5 class="fw-bold">Reserve Equipment</h5>
+                                <p class="text-muted small mb-0">
+                                    Submit your scheduling request instantly and monitor approval status updates.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- User Roles Section -->
+            <section class="roles-section py-5 py-lg-6 border-top">
+                <div class="container py-4">
+
+                    <div class="text-center mb-5">
+                        <span class="section-label mb-2">USER ACCESS</span>
+                        <h2 class="fw-bold mt-2 display-6 ">Tailored for Every Role</h2>
+                    </div>
+
+                    <div class="row g-4">
+
+                        <div class="col-md-4">
+                            <div class="role-card">
+                                <i class="bi bi-mortarboard"></i>
+                                <h5 class="fw-bold">Students</h5>
+                                <p class="text-muted small mb-0">
+                                    Browse active equipment, submit booking requests, monitor active borrowings, and report
+                                    equipment issues.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="role-card">
+                                <i class="bi bi-person-workspace"></i>
+                                <h5 class="fw-bold">Lab Assistants</h5>
+                                <p class="text-muted small mb-0">
+                                    Approve or decline reservations, issue hardware, process safe returns, and log routine
+                                    maintenance.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="role-card">
+                                <i class="bi bi-shield-lock"></i>
+                                <h5 class="fw-bold">Administrators</h5>
+                                <p class="text-muted small mb-0">
+                                    Oversee user roles, manage laboratory layouts, monitor comprehensive inventory status, and
+                                    view reports.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- Call To Action -->
+            <section class="cta-section py-5 py-lg-6 text-white text-center">
+                <div class="container py-4">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <h2 class="fw-bold display-5 text-white mb-3">
+                                Ready to Transform Your Laboratory?
+                            </h2>
+                            <p class="lead text-white-50 mb-4">
+                                Join university researchers and administrators utilizing a smarter way to manage laboratory
+                                infrastructure.
+                            </p>
+                            <a asp-controller="Account" asp-action="Register"
+                               class="btn btn-warning btn-lg px-5 py-3 fw-semibold shadow">
+                                Create Your Account Today
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>

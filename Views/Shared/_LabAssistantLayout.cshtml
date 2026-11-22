@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - LabLedger</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="module-body">
+	<div class="module-shell">
+		<aside class="module-sidebar">
+			<a class="module-brand" asp-controller="Home" asp-action="Index"><i class="bi bi-beaker"></i> LabLedger</a>
+			<span class="module-label">LAB ASSISTANT</span>
+			<a class="module-link @((ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard") ? "active" : "")" asp-controller="LabAssistant" asp-action="Dashboard"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+			<a class="module-link @((ViewContext.RouteData.Values["Action"]?.ToString() == "ReservationRequests") ? "active" : "")" asp-controller="LabAssistant" asp-action="ReservationRequests"><i class="bi bi-calendar2-check"></i> Reservation Requests</a>
+			<a class="module-link @((ViewContext.RouteData.Values["Action"]?.ToString() == "IssueEquipment") ? "active" : "")" asp-controller="LabAssistant" asp-action="IssueEquipment"><i class="bi bi-box-arrow-up"></i> Issue Equipment</a>
+			<a class="module-link @((ViewContext.RouteData.Values["Action"]?.ToString() == "ReturnEquipment") ? "active" : "")" asp-controller="LabAssistant" asp-action="ReturnEquipment"><i class="bi bi-box-arrow-in-down"></i> Return Equipment</a>
+			<a class="module-link @((ViewContext.RouteData.Values["Action"]?.ToString() == "MaintenanceRequests") ? "active" : "")" asp-controller="LabAssistant" asp-action="MaintenanceRequests"><i class="bi bi-tools"></i> Maintenance Requests</a>
+			<span class="module-label mt-4">ACCOUNT</span>
+			<a class="module-link" asp-controller="Home" asp-action="Index"><i class="bi bi-arrow-left"></i> Public Website</a>
+		</aside>
+		<main class="module-content">
+			<header class="module-topbar"><div><span class="text-muted small">Operations Workspace</span><h1>@ViewData["Title"]</h1></div><div class="module-user"><i class="bi bi-person-circle"></i><span>Samira Khan<small>Lab Assistant</small></span></div></header>
+			@RenderBody()
+		</main>
+	</div>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,26 @@
+@{
+    Layout = "_StudentLayout";
+    ViewData["Title"] = "Equipment Details";
+}
+
+<div class="student-page-header">
+    <div><span class="module-eyebrow">RESOURCE LIBRARY</span><h2>Equipment Details</h2><p>Review the equipment information before making a reservation.</p></div>
+    <a class="btn btn-outline-primary" asp-action="Equipment"><i class="bi bi-arrow-left me-2"></i>Back to Catalog</a>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="equipment-detail-image"><i class="bi bi-cpu"></i><span>Equipment image</span></div>
+    </div>
+    <div class="col-lg-7">
+        <div class="module-panel h-100">
+            <div class="d-flex justify-content-between align-items-start gap-3 mb-3"><div><span class="badge text-bg-light mb-2">Computing</span><h3>Arduino Uno R3</h3></div><span class="status-badge approved">Available</span></div>
+            <p class="text-muted">A programmable microcontroller board suitable for electronics prototypes, sensor experiments, and introductory embedded systems work.</p>
+            <div class="row g-3 my-3"><div class="col-sm-6"><div class="detail-item"><small>Laboratory</small><strong>Computer Lab 01</strong></div></div><div class="col-sm-6"><div class="detail-item"><small>Quantity available</small><strong>12 of 15 units</strong></div></div></div>
+            <hr>
+            <h5>Specifications</h5>
+            <dl class="row small mb-4"><dt class="col-sm-5 text-muted">Microcontroller</dt><dd class="col-sm-7">ATmega328P</dd><dt class="col-sm-5 text-muted">Digital I/O pins</dt><dd class="col-sm-7">14</dd><dt class="col-sm-5 text-muted">Operating voltage</dt><dd class="col-sm-7">5V</dd><dt class="col-sm-5 text-muted">Connectivity</dt><dd class="col-sm-7">USB Type-B</dd></dl>
+            <a class="btn btn-primary" asp-action="MyReservations"><i class="bi bi-calendar-plus me-2"></i>Reserve Equipment</a>
+        </div>
+    </div>
+</div>

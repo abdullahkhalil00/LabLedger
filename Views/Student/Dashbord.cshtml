@@ -1,0 +1,274 @@
+
+@{
+    ViewData["Title"] = "Student Dashboard";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml"; 
+}
+
+<div class="student-dashboard">
+
+    
+
+    <!-- Main Content -->
+    <main class="student-main">
+
+    
+        <!-- Welcome Banner -->
+        <div class="dashboard-welcome">
+            <div>
+                <h3>Welcome to LabLedger!</h3>
+                <p>
+                    Manage your laboratory reservations and
+                    keep track of your borrowed equipment.
+                </p>
+                <a asp-controller="Student" asp-action="Equipment" class="welcome-btn">
+                    Explore Equipment
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+            </div>
+
+            <div class="welcome-icon">
+                <i class="bi bi-motherboard"></i>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="row g-3 dashboard-stats">
+
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="bi bi-pc-display"></i>
+                    </div>
+                    <div>
+                        <p>Available Equipment</p>
+                        <h3>120</h3>
+                        <small>Across all laboratories</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                    <div>
+                        <p>Active Reservations</p>
+                        <h3>03</h3>
+                        <small>Your current bookings</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                    <div>
+                        <p>Borrowed Equipment</p>
+                        <h3>02</h3>
+                        <small>Currently in your possession</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div>
+                        <p>Pending Requests</p>
+                        <h3>01</h3>
+                        <small>Awaiting approval</small>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="dashboard-section">
+            <div class="section-heading">
+                <div>
+                    <h5>Quick Actions</h5>
+                    <p>Access frequently used features.</p>
+                </div>
+            </div>
+
+            <div class="row g-3">
+
+                <div class="col-md-4">
+                    <a asp-controller="Student" asp-action="Equipment" class="quick-action-card">
+                        <div class="quick-icon">
+                            <i class="bi bi-search"></i>
+                        </div>
+                        <div>
+                            <h6>Browse Equipment</h6>
+                            <p>Find available lab equipment.</p>
+                        </div>
+                        <i class="bi bi-arrow-up-right ms-auto"></i>
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a asp-controller="Student" asp-action="Equipment" class="quick-action-card">
+                        <div class="quick-icon">
+                            <i class="bi bi-calendar-plus"></i>
+                        </div>
+                        <div>
+                            <h6>Book Equipment</h6>
+                            <p>Reserve equipment for your lab work.</p>
+                        </div>
+                        <i class="bi bi-arrow-up-right ms-auto"></i>
+                    </a>
+                </div>
+
+                <div class="col-md-4">
+                    <a asp-controller="Student" asp-action="ReportDamage" class="quick-action-card">
+                        <div class="quick-icon">
+                            <i class="bi bi-exclamation-triangle"></i>
+                        </div>
+                        <div>
+                            <h6>Report an Issue</h6>
+                            <p>Report damaged equipment.</p>
+                        </div>
+                        <i class="bi bi-arrow-up-right ms-auto"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Recent Reservations -->
+        <div class="dashboard-section">
+            <div class="section-heading">
+                <div>
+                    <h5>Recent Reservations</h5>
+                    <p>Track your latest equipment requests.</p>
+                </div>
+
+                <a asp-controller="Student" asp-action="MyReservations" class="view-all">View All</a>
+            </div>
+
+            <div class="table-responsive dashboard-table">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>Laboratory</th>
+                            <th>Booking Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="equipment-name">
+                                    <i class="bi bi-cpu"></i>
+                                    Arduino Uno
+                                </div>
+                            </td>
+                            <td>Computer Lab 01</td>
+                            <td>09 Nov 2026</td>
+                            <td>
+                                <span class="status-badge approved">
+                                    Approved
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="equipment-name">
+                                    <i class="bi bi-display"></i>
+                                    Oscilloscope
+                                </div>
+                            </td>
+                            <td>Electronics Lab</td>
+                            <td>11 Nov 2026</td>
+                            <td>
+                                <span class="status-badge pending">
+                                    Pending
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <div class="equipment-name">
+                                    <i class="bi bi-router"></i>
+                                    Network Switch
+                                </div>
+                            </td>
+                            <td>Networking Lab</td>
+                            <td>12 Nov 2026</td>
+                            <td>
+                                <span class="status-badge rejected">
+                                    Rejected
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Borrowed Equipment -->
+        <div class="dashboard-section">
+            <div class="section-heading">
+                <div>
+                    <h5>Currently Borrowed Equipment</h5>
+                    <p>Keep track of your return deadlines.</p>
+                </div>
+            </div>
+
+            <div class="borrowed-card">
+                <div class="borrowed-equipment-icon">
+                    <i class="bi bi-motherboard"></i>
+                </div>
+
+                <div class="borrowed-details">
+                    <h6>Arduino Uno</h6>
+                    <p>Computer Lab 01</p>
+                </div>
+
+                <div class="return-date">
+                    <small>Return Date</small>
+                    <h6>13 Nov 2026</h6>
+                </div>
+
+                <span class="status-badge approved">
+                    Issued
+                </span>
+            </div>
+
+            <div class="borrowed-card">
+                <div class="borrowed-equipment-icon">
+                    <i class="bi bi-usb-plug"></i>
+                </div>
+
+                <div class="borrowed-details">
+                    <h6>Raspberry Pi</h6>
+                    <p>Computer Lab 02</p>
+                </div>
+
+                <div class="return-date">
+                    <small>Return Date</small>
+                    <h6>15 Nov 2026</h6>
+                </div>
+
+                <span class="status-badge approved">
+                    Issued
+                </span>
+            </div>
+        </div>
+
+        <footer class="dashboard-footer">
+            © 2026 LabLedger. All rights reserved.
+        </footer>
+
+    </main>
+</div>

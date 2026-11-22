@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LabLedger</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+
+<body>
+
+    <div class="student-dashboard">
+
+        <aside class="student-sidebar">
+
+            <div class="sidebar-brand">
+                <i class="bi bi-mortarboard-fill"></i>
+                <span>LabLedger</span>
+            </div>
+
+            <p class="sidebar-heading">MENU</p>
+
+            <a asp-controller="Student" asp-action="Dashboard"
+               class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Dashboard" ? "active" : "")">
+                <i class="bi bi-grid"></i>
+                Dashboard
+            </a>
+
+            <a asp-controller="Student" asp-action="Equipment"
+               class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Equipment" ? "active" : "")">
+                <i class="bi bi-pc-display"></i>
+                Equipment Catalog
+            </a>
+
+            <a asp-controller="Student" asp-action="MyReservations"
+               class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "MyReservations" ? "active" : "")">
+                <i class="bi bi-calendar-check"></i>
+                My Reservations
+            </a>
+
+            <a asp-controller="Student" asp-action="MyBorrowedEquipment"
+               class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "MyBorrowedEquipment" ? "active" : "")">
+                <i class="bi bi-box-seam"></i>
+                Borrowed Equipment
+            </a>
+
+            <a asp-controller="Student" asp-action="ReportDamage"
+               class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "ReportDamage" ? "active" : "")">
+                <i class="bi bi-exclamation-circle"></i>
+                Report Damage
+            </a>
+
+            <p class="sidebar-heading mt-4">ACCOUNT</p>
+
+            <a asp-controller="Student" asp-action="Profile"
+               class="sidebar-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Profile" ? "active" : "")">
+                <i class="bi bi-person"></i>
+                My Profile
+            </a>
+
+            <a asp-controller="Home" asp-action="Index" class="sidebar-link">
+                <i class="bi bi-box-arrow-left"></i>
+                Back to Website
+            </a>
+
+        </aside>
+
+        <main class="student-main">
+            @RenderBody()
+        </main>
+
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

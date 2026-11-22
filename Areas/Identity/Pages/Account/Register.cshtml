@@ -1,0 +1,131 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<section class="auth-section">
+    <div class="container">
+        <div class="auth-card register-card">
+
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="bi bi-person-plus-fill"></i>
+                </div>
+
+                <h2>Create Account</h2>
+                <p>Join LabLedger to manage laboratory resources.</p>
+            </div>
+
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger small mb-3" role="alert"></div>
+
+
+
+                /////
+
+                <div class="mb-3">
+                    <label asp-for="Input.Name" class="form-label">Full Name</label>
+                    <div class="auth-input">
+                        <i class="bi bi-person"></i>
+                        <input asp-for="Input.Name" class="form-control" placeholder="Enter your full name" />
+                    </div>
+                    <span asp-validation-for="Input.Name" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.RollNo" class="form-label">Roll Number</label>
+                    <div class="auth-input">
+                        <i class="bi bi-card-text"></i>
+                        <input asp-for="Input.RollNo" class="form-control" placeholder="Enter your roll number" />
+                    </div>
+                    <span asp-validation-for="Input.RollNo" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.Department" class="form-label">Department</label>
+                    <div class="auth-input">
+                        <i class="bi bi-building"></i>
+                        <input asp-for="Input.Department" class="form-control" placeholder="Enter your department" />
+                    </div>
+                    <span asp-validation-for="Input.Department" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.Program" class="form-label">Program</label>
+                    <div class="auth-input">
+                        <i class="bi bi-mortarboard"></i>
+                        <input asp-for="Input.Program" class="form-control" placeholder="Enter your program" />
+                    </div>
+                    <span asp-validation-for="Input.Program" class="text-danger small"></span>
+                </div>
+
+
+                ////
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="form-label">Email Address</label>
+                    <div class="auth-input">
+                        <i class="bi bi-envelope"></i>
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"
+                               placeholder="Enter your email" />
+                    </div>
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <div class="auth-input">
+                        <i class="bi bi-lock"></i>
+                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
+                               aria-required="true" placeholder="Create a password" />
+                    </div>
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.ConfirmPassword" class="form-label">Confirm Password</label>
+                    <div class="auth-input">
+                        <i class="bi bi-shield-lock"></i>
+                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password"
+                               aria-required="true" placeholder="Confirm your password" />
+                    </div>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+                </div>
+
+                <button id="registerSubmit" type="submit" class="auth-btn">
+                    Create Account
+                    <i class="bi bi-arrow-right ms-2"></i>
+                </button>
+
+                <div class="auth-footer">
+                    <p class="mb-0">
+                        Already have an account?
+                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Login</a>
+                    </p>
+                </div>
+            </form>
+
+            @if ((Model.ExternalLogins?.Count ?? 0) > 0)
+            {
+                <div class="auth-external">
+                    <div class="auth-divider"><span>or continue with</span></div>
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl"
+                          method="post" class="d-grid gap-2">
+                        @foreach (var provider in Model.ExternalLogins!)
+                        {
+                            <button type="submit" class="btn btn-outline-primary auth-external-btn" name="provider"
+                                    value="@provider.Name" title="Register using your @provider.DisplayName account">
+                                @provider.DisplayName
+                            </button>
+                        }
+                    </form>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
