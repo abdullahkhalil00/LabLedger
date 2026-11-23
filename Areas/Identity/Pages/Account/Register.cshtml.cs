@@ -23,19 +23,19 @@ namespace LabLedger.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
         public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
-            SignInManager<IdentityUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+    UserManager<ApplicationUser> userManager,
+    IUserStore<ApplicationUser> userStore,
+    SignInManager<ApplicationUser> signInManager,
+    ILogger<RegisterModel> logger,
+    IEmailSender emailSender)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -89,6 +89,9 @@ namespace LabLedger.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Display(Name = "Apply for Lab Assistant")]
+            public bool ApplyForLabAssistant { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -112,6 +115,13 @@ namespace LabLedger.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                // Save additional registration information
+                user.Name = Input.Name;
+                user.RollNo = Input.RollNo;
+                user.Department = Input.Department;
+                user.Program = Input.Program;
+                
+
                 await _userStore.SetUserNameAsync(
                     user, Input.Email, CancellationToken.None);
 
@@ -125,30 +135,27 @@ namespace LabLedger.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation(
                         "User created a new account with password.");
-
-                    // Save additional registration information
-                    var claims = new List<Claim>
+                    // Add Lab Assistant application claim only if user selected checkbox
+                    if (Input.ApplyForLabAssistant)
                     {
-                        new Claim("Name", Input.Name),
-                        new Claim("RollNo", Input.RollNo),
-                        new Claim("Department", Input.Department),
-                        new Claim("Program", Input.Program)
-                    };
+                        var claims = new List<Claim>
+    {
+        new Claim("ApplyForLabAssistant", "true"),
+        new Claim("ApplicantEmail", Input.Email)
+    };
 
-                    var claimResult = await _userManager.AddClaimsAsync(
-                        user, claims);
+                        var claimResult = await _userManager.AddClaimsAsync(user, claims);
 
-                    if (!claimResult.Succeeded)
-                    {
-                        foreach (var error in claimResult.Errors)
+                        if (!claimResult.Succeeded)
                         {
-                            ModelState.AddModelError(
-                                string.Empty, error.Description);
+                            foreach (var error in claimResult.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+
+                            await _userManager.DeleteAsync(user);
+                            return Page();
                         }
-
-                        await _userManager.DeleteAsync(user);
-
-                        return Page();
                     }
 
                     var userId = await _userManager.GetUserIdAsync(user);
@@ -204,22 +211,21 @@ namespace LabLedger.Areas.Identity.Pages.Account
 
             return Page();
         }
-
-        private IdentityUser CreateUser()
+        private ApplicationUser CreateUser()
         {
             try
             {
-                return Activator.CreateInstance<IdentityUser>();
+                return Activator.CreateInstance<ApplicationUser>();
             }
             catch
             {
                 throw new InvalidOperationException(
-                    $"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor.");
+                    $"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor.");
             }
         }
 
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
@@ -227,7 +233,7 @@ namespace LabLedger.Areas.Identity.Pages.Account
                     "The default UI requires a user store with email support.");
             }
 
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<ApplicationUser>)_userStore;
         }
     }
 }

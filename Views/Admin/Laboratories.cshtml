@@ -1,10 +1,351 @@
+
+@model List<Laboratory.LaboratoryModel>
+
 @{
-	Layout = "_AdminLayout";
-	ViewData["Title"] = "Manage Laboratories";
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Manage Laboratories";
+
+    int totalLabs = Model?.Count ?? 0;
+    int activeLabs = Model?.Count(x => x.status) ?? 0;
+    int inactiveLabs = totalLabs - activeLabs;
 }
 
-<div class="admin-page-header"><div><span class="admin-eyebrow">RESOURCE LOCATIONS</span><h2>Manage Laboratories</h2><p>Organize laboratory locations and their assigned resources.</p></div><button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#laboratoryModal"><i class="bi bi-plus-lg me-2"></i>Add Laboratory</button></div>
-<div class="row g-3 mb-4"><div class="col-6 col-md-3"><div class="module-stat"><i class="bi bi-building"></i><strong>12</strong><span>Total laboratories</span></div></div><div class="col-6 col-md-3"><div class="module-stat"><i class="bi bi-check-circle"></i><strong>11</strong><span>Active</span></div></div><div class="col-6 col-md-3"><div class="module-stat"><i class="bi bi-pause-circle"></i><strong>01</strong><span>Inactive</span></div></div></div>
-<div class="module-panel mb-4"><label class="form-label" for="labSearch">Search laboratories</label><div class="input-group"><span class="input-group-text"><i class="bi bi-search"></i></span><input id="labSearch" class="form-control" type="search" placeholder="Search by name, code, or location"></div></div>
-<div class="module-table table-responsive"><table class="table align-middle"><thead><tr><th>Laboratory</th><th>Code</th><th>Location</th><th>Assigned assistant</th><th>Total equipment</th><th>Status</th><th>Actions</th></tr></thead><tbody><tr><td class="fw-semibold">Computer Lab 01</td><td>CL-01</td><td>Block A, Floor 2</td><td>Samira Khan</td><td>42</td><td><span class="status-badge approved">Active</span></td><td><button class="btn btn-sm btn-light" type="button"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger" type="button"><i class="bi bi-trash"></i></button></td></tr><tr><td class="fw-semibold">Electronics Lab</td><td>EL-01</td><td>Block B, Floor 1</td><td>Omar Farooq</td><td>68</td><td><span class="status-badge approved">Active</span></td><td><button class="btn btn-sm btn-light" type="button"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger" type="button"><i class="bi bi-trash"></i></button></td></tr><tr><td class="fw-semibold">Robotics Lab</td><td>RL-01</td><td>Innovation Wing</td><td>Unassigned</td><td>18</td><td><span class="status-badge pending">Inactive</span></td><td><button class="btn btn-sm btn-light" type="button"><i class="bi bi-pencil"></i></button> <button class="btn btn-sm btn-outline-danger" type="button"><i class="bi bi-trash"></i></button></td></tr></tbody></table></div>
-<div class="modal fade" id="laboratoryModal" tabindex="-1" aria-labelledby="laboratoryModalLabel" aria-hidden="true"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="laboratoryModalLabel">Add Laboratory</h5><button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button></div><div class="modal-body"><div class="row g-3"><div class="col-md-7"><label class="form-label">Laboratory name</label><input class="form-control" required></div><div class="col-md-5"><label class="form-label">Laboratory code</label><input class="form-control" placeholder="e.g. CL-02" required></div><div class="col-12"><label class="form-label">Location</label><input class="form-control"></div><div class="col-12"><label class="form-label">Description</label><textarea class="form-control" rows="3"></textarea></div><div class="col-12"><label class="form-label">Assigned lab assistant</label><select class="form-select"><option>Unassigned</option><option>Samira Khan</option><option>Omar Farooq</option></select></div></div></div><div class="modal-footer"><button class="btn btn-outline-secondary" type="button" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" type="button">Save Laboratory</button></div></div></div></div>
+<div class="admin-page-header">
+    <div>
+        <span class="admin-eyebrow">RESOURCE LOCATIONS</span>
+        <h2>Manage Laboratories</h2>
+        <p>Organize laboratory locations and their assigned resources.</p>
+    </div>
+
+    <button class="btn btn-primary" type="button"
+            data-bs-toggle="modal" data-bs-target="#laboratoryModal">
+        <i class="bi bi-plus-lg me-2"></i>Add Laboratory
+    </button>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="module-stat">
+            <i class="bi bi-building"></i>
+            <strong>@totalLabs</strong>
+            <span>Total laboratories</span>
+        </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+        <div class="module-stat">
+            <i class="bi bi-check-circle"></i>
+            <strong>@activeLabs</strong>
+            <span>Active</span>
+        </div>
+    </div>
+
+    <div class="col-6 col-md-3">
+        <div class="module-stat">
+            <i class="bi bi-pause-circle"></i>
+            <strong>@inactiveLabs</strong>
+            <span>Inactive</span>
+        </div>
+    </div>
+</div>
+
+<div class="module-panel mb-4">
+    <label class="form-label" for="labSearch">Search laboratories</label>
+
+    <div class="input-group">
+        <span class="input-group-text">
+            <i class="bi bi-search"></i>
+        </span>
+
+        <input id="labSearch" class="form-control" type="search"
+               placeholder="Search by name, code, or location" />
+    </div>
+</div>
+
+<div class="module-table table-responsive">
+    <table class="table align-middle" id="labTable">
+
+        <thead>
+            <tr>
+                <th>Laboratory</th>
+                <th>Code</th>
+                <th>Location</th>
+                <th>Assigned assistant</th>
+                <th>Total equipment</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var lab in Model)
+                {
+                    <tr>
+                        <td class="fw-semibold">@lab.laboratoryName</td>
+                        <td>@lab.Labcode</td>
+                        <td>@lab.Location</td>
+
+                        <td>
+                            @(string.IsNullOrEmpty(lab.LabAssistant)
+                                ? "Unassigned"
+                                : lab.LabAssistant)
+                        </td>
+
+                        <td>-</td>
+
+                        <td>
+                            @if (lab.status)
+                            {
+                                <span class="status-badge approved">Active</span>
+                            }
+                            else
+                            {
+                                <span class="status-badge pending">Inactive</span>
+                            }
+                        </td>
+
+                        <td>
+                            <button class="btn btn-sm btn-light editLabBtn"
+                                    type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editLaboratoryModal"
+                                    data-id="@lab.Id"
+                                    data-name="@lab.laboratoryName"
+                                    data-code="@lab.Labcode"
+                                    data-location="@lab.Location"
+                                    data-description="@lab.Description"
+                                    data-assistant="@lab.LabAssistant"
+                                    data-status="@lab.status">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+
+                            <form asp-controller="Admin"
+                                  asp-action="DeleteLaboratory"
+                                  asp-route-id="@lab.Id"
+                                  method="post"
+                                  class="d-inline"
+                                  onsubmit="return confirm('Are you sure you want to delete this laboratory?');">
+
+                                <button class="btn btn-sm btn-outline-danger"
+                                        type="submit">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="7" class="text-center py-4">
+                        No laboratories found.
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<!-- Add Laboratory Modal -->
+
+<div class="modal fade" id="laboratoryModal" tabindex="-1"
+     aria-labelledby="laboratoryModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <form asp-controller="Admin"
+                  asp-action="Laboratories"
+                  method="post">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="laboratoryModalLabel">
+                        Add Laboratory
+                    </h5>
+
+                    <button class="btn-close" type="button"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row g-3">
+
+                        <div class="col-md-7">
+                            <label class="form-label">Laboratory name</label>
+                            <input name="name" class="form-control" required />
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label">Laboratory code</label>
+                            <input name="labcode" class="form-control"
+                                   placeholder="e.g. CL-02" required />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Location</label>
+                            <input name="location" class="form-control" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Description</label>
+                            <textarea name="description"
+                                      class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Assigned lab assistant</label>
+                            <input name="labassistant" class="form-control"
+                                   placeholder="Enter assistant name" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Status</label>
+                            <select name="status" class="form-select">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary"
+                            type="button" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button class="btn btn-primary" type="submit">
+                        Save Laboratory
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Laboratory Modal -->
+
+<div class="modal fade" id="editLaboratoryModal" tabindex="-1"
+     aria-labelledby="editLaboratoryModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <form asp-controller="Admin"
+                  asp-action="UpdateLaboratory"
+                  method="post">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editLaboratoryModalLabel">
+                        Edit Laboratory
+                    </h5>
+
+                    <button class="btn-close" type="button"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" name="id" id="editId" />
+
+                    <div class="row g-3">
+
+                        <div class="col-md-7">
+                            <label class="form-label">Laboratory name</label>
+                            <input name="name" id="editName"
+                                   class="form-control" required />
+                        </div>
+
+                        <div class="col-md-5">
+                            <label class="form-label">Laboratory code</label>
+                            <input name="labcode" id="editCode"
+                                   class="form-control" required />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Location</label>
+                            <input name="location" id="editLocation"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" id="editDescription"
+                                      class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Assigned lab assistant</label>
+                            <input name="labassistant" id="editAssistant"
+                                   class="form-control" />
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Status</label>
+                            <select name="status" id="editStatus"
+                                    class="form-select">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-outline-secondary"
+                            type="button" data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button class="btn btn-primary" type="submit">
+                        Update Laboratory
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Search laboratories
+
+    document.getElementById("labSearch").addEventListener("input", function () {
+
+        let searchValue = this.value.toLowerCase();
+
+        document.querySelectorAll("#labTable tbody tr").forEach(row => {
+
+            row.style.display = row.innerText.toLowerCase().includes(searchValue)
+                ? ""
+                : "none";
+
+        });
+
+    });
+
+
+    // Populate edit modal
+
+    document.querySelectorAll(".editLabBtn").forEach(button => {
+
+        button.addEventListener("click", function () {
+
+            document.getElementById("editId").value = this.dataset.id;
+            document.getElementById("editName").value = this.dataset.name;
+            document.getElementById("editCode").value = this.dataset.code;
+            document.getElementById("editLocation").value = this.dataset.location;
+            document.getElementById("editDescription").value = this.dataset.description;
+            document.getElementById("editAssistant").value = this.dataset.assistant;
+            document.getElementById("editStatus").value = this.dataset.status;
+
+        });
+
+    });
+</script>

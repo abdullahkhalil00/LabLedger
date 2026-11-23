@@ -1,9 +1,9 @@
 using LabLedger.Models;
 using Microsoft.Data.SqlClient;
-
+using Equipmentnamespace;
 namespace LabLedger.Repositories
 {
-    public class StudentRepo : IEquipmentCatalog
+    public class StudentRepo 
     {
         private readonly string connectionString =
             "Server=localhost\\SQLEXPRESS;Database=LabLedgerDB;Trusted_Connection=True;TrustServerCertificate=True;";
@@ -29,8 +29,9 @@ namespace LabLedger.Repositories
                                 Id = Convert.ToInt32(reader["Id"]),
                                 Category = reader["Category"].ToString(),
                                 EquipmentName = reader["EquipmentName"].ToString(),
-                                Location = reader["Location"].ToString(),
-                                Status = reader["Status"].ToString(),
+                                Condition = reader["Condition"].ToString(),
+                                Description = reader["Description"].ToString(),
+                                labname = reader["labname"].ToString(),
                                 Quantity = Convert.ToInt32(reader["Quantity"])
                             };
 

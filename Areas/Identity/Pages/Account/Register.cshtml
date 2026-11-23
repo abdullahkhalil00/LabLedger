@@ -91,6 +91,15 @@
                     </div>
                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
                 </div>
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input asp-for="Input.ApplyForLabAssistant" class="form-check-input" />
+
+                        <label asp-for="Input.ApplyForLabAssistant" class="form-check-label">
+                            Apply for Lab Assistant
+                        </label>
+                    </div>
+                </div>
 
                 <button id="registerSubmit" type="submit" class="auth-btn">
                     Create Account

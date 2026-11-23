@@ -437,3 +437,4 @@ F:\Semester 5\Web Tech\Project\LabLedger\obj\Debug\net10.0\compressed\v0zgfp0y55
 F:\Semester 5\Web Tech\Project\LabLedger\obj\Debug\net10.0\compressed\yfc7ypekbg-{0}-mlv21k5csn-mlv21k5csn.gz
 F:\Semester 5\Web Tech\Project\LabLedger\obj\Debug\net10.0\LabLedger.csproj.Up2Date
 F:\Semester 5\Web Tech\Project\LabLedger\obj\Debug\net10.0\compressed\220f1xndlh-{0}-s0gnkaedl8-s0gnkaedl8.gz
+F:\Semester 5\Web Tech\Project\LabLedger\obj\Debug\net10.0\LabLedger.sourcelink.json

@@ -18,7 +18,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IEquipmentCatalog, StudentRepo>();
+// builder.Services.AddScoped<IEquipmentCatalog, StudentRepo>();
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

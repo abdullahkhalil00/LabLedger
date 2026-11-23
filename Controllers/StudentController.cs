@@ -1,16 +1,16 @@
 using LabLedger.Repositories;
 using Microsoft.AspNetCore.Mvc;
-
+using Equipmentnamespace;
 namespace LabLedger.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IEquipmentCatalog _equipmentCatalog;
+        // private readonly IEquipmentCatalog _equipmentCatalog;
 
-        public StudentController(IEquipmentCatalog equipmentCatalog)
-        {
-            _equipmentCatalog = equipmentCatalog;
-        }
+        // public StudentController(IEquipmentCatalog equipmentCatalog)
+        // {
+        //     _equipmentCatalog = equipmentCatalog;
+        // }
 
         public IActionResult Dashboard() => View("Dashbord");
 
@@ -21,8 +21,8 @@ namespace LabLedger.Controllers
 
         public IActionResult Equipment()
         {
-            var result = _equipmentCatalog.GetAllEquipments();
-            return View(result);
+            // var result = _equipmentCatalog.GetAllEquipments();
+            return View();
         }
 
         public IActionResult EquipmentDetails(int? id) => View();
